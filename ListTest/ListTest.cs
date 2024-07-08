@@ -39,44 +39,40 @@
 
         private object _lockDatabaseObj = new object();
 
-        private Task _taskUpdateDB = null;
-
         private bool _isRunningUpdateDB = false;
 
         private void UpdateDB()
         {
-            if (_isRunningUpdateDB) 
+            // nếu đã có task run rồi thì cứ chạy tiếp vòng while trong task đó
+            if (_isRunningUpdateDB)
             {
                 return;
             }
             _isRunningUpdateDB = true;
-            
-            if(_taskUpdateDB == null || _taskUpdateDB.IsCompleted)
+
+            // chưa có thì run task mới
+            Task.Run(() =>
             {
-                _taskUpdateDB = new Task(() =>
+                try
                 {
-                    try
+                    while (_listDatabaseId.Count > 0)
                     {
-                        while (_listDatabaseId.Count > 0)
+                        lock (_lockDatabaseObj) 
                         {
-                            lock (_lockDatabaseObj) 
-                            {
-                                Console.WriteLine(_listDatabaseId.FirstOrDefault());
-                                _listDatabaseId.RemoveAt(0);
-                            }
+                            Console.WriteLine(_listDatabaseId.FirstOrDefault());
+                            _listDatabaseId.RemoveAt(0);
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"{nameof(ListTest)}{nameof(UpdateDB)} {ex.Message}");
-                    }
-                    finally
-                    {
-                        _isRunningUpdateDB = false;
-                    }
-                });
-            }
-            _taskUpdateDB.Start();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"{nameof(ListTest)}{nameof(UpdateDB)} {ex.Message}");
+                }
+                finally
+                {
+                    _isRunningUpdateDB = false;
+                }
+            });
         }
 
         /// <summary>
@@ -84,6 +80,9 @@
         /// </summary>
         public void TestUpdateDB()
         {
+            // giả lập trường hợp thêm 1 database nào list
+            // sau đó 1 thread khác đọc list database và in ra màn hình
+            // dùng đệ quy để thấy 2 việc chạy song song với nhau
             for (int i = 0; i < 3; i++)
             {
                 // phải gọi lock thủ công
