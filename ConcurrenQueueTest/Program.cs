@@ -9,7 +9,7 @@ namespace ListTest
             ConcurrentQueueTest concurrentQueueTest = new ConcurrentQueueTest();
 
             // làm việc đa luồng
-            concurrentQueueTest.Run();
+            concurrentQueueTest.TestUpdateDB();
         }
     }
 }

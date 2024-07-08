@@ -9,7 +9,7 @@
             // listTest.TestListRunManual();
 
             // làm việc đa luồng
-            listTest.Run();
+            listTest.TestUpdateDB();
         }
     }
 }
