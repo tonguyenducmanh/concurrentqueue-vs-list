@@ -51,7 +51,7 @@
             }
             _isRunningUpdateDB = true;
             
-            if(_taskUpdateDB == null)
+            if(_taskUpdateDB == null || _taskUpdateDB.IsCompleted)
             {
                 _taskUpdateDB = new Task(() =>
                 {
