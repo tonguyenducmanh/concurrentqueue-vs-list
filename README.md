@@ -11,3 +11,7 @@ Kiểu dữ liệu ConcurrentQueue:
 ```
 C# cung cấp sẵn kiểu dữ liệu này để tự lock khi cần thiết nếu làm việc đa luồng chung 1 object rồi.
 ```
+
+# Hướng dẫn chạy project
+
+chạy 1 trong các project để test được từng kiểu dữ liệu
