@@ -15,3 +15,9 @@ C# cung cấp sẵn kiểu dữ liệu này để tự lock khi cần thiết n�
 # Hướng dẫn chạy project
 
 chạy 1 trong các project để test được từng kiểu dữ liệu
+
+project sẽ test việc main thread liên tục thêm 1 element vào trong List/ConcurrentQueue
+
+và thread khác sẽ liên tục đọc 1 element trong List/ConcurrentQueue để Console.WriteLine ra
+
+Làm theo hướng này sẽ tránh bị phình ram
