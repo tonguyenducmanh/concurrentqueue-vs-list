@@ -1,4 +1,4 @@
-#Project test việc sử dụng 2 kiểu dữ liệu là ConcurrentQueue và List khi làm việc đa luồng (mutithread) với ngôn ngữ lập trình C#
+# Project test việc sử dụng 2 kiểu dữ liệu là ConcurrentQueue và List khi làm việc đa luồng (mutithread) với ngôn ngữ lập trình C#
 
 Kiểu dữ liệu List:
 
