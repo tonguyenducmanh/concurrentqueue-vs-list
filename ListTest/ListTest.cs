@@ -57,10 +57,18 @@
                 {
                     while (_listDatabaseId.Count > 0)
                     {
-                        lock (_lockDatabaseObj) 
+                        // luôn phải có try catch khi làm việc đa luồng
+                        try
                         {
-                            Console.WriteLine(_listDatabaseId.FirstOrDefault());
-                            _listDatabaseId.RemoveAt(0);
+                            lock (_lockDatabaseObj)
+                            {
+                                Console.WriteLine(_listDatabaseId.FirstOrDefault());
+                                _listDatabaseId.RemoveAt(0);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"{nameof(ListTest)}{nameof(UpdateDB)} {ex.Message}");
                         }
                     }
                 }

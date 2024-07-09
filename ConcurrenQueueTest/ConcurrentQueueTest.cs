@@ -31,7 +31,7 @@ namespace ConcurrenQueueTest
                     {
                         Guid dbId;
                         _concurrentQueueDBIds.TryDequeue(out dbId);
-                        // alway have try catch in multi thread
+                        // luôn phải có try catch khi làm việc đa luồng
                         try
                         {
                             Console.WriteLine(dbId);
