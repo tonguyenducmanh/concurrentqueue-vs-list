@@ -9,7 +9,7 @@ namespace ConcurrenQueueTest
     {
         #region Multi Thread
 
-        private ConcurrentQueue<Guid> _listDatabaseId = new ConcurrentQueue<Guid>();
+        private ConcurrentQueue<Guid> _concurrentQueueDBIds = new ConcurrentQueue<Guid>();
 
         private bool _isRunningUpdateDB = false;
 
@@ -27,11 +27,19 @@ namespace ConcurrenQueueTest
             {
                 try
                 {
-                    while (_listDatabaseId.Count > 0)
+                    while (_concurrentQueueDBIds.Count > 0)
                     {
                         Guid dbId;
-                        _listDatabaseId.TryDequeue(out dbId);
-                        Console.WriteLine(dbId);
+                        _concurrentQueueDBIds.TryDequeue(out dbId);
+                        // alway have try catch in multi thread
+                        try
+                        {
+                            Console.WriteLine(dbId);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"{nameof(ConcurrentQueueTest)}{nameof(UpdateDB)} {ex.Message}");
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -55,7 +63,7 @@ namespace ConcurrenQueueTest
             // dùng đệ quy để thấy 2 việc chạy song song với nhau
             for (int i = 0; i < 3; i++)
             {
-                _listDatabaseId.Enqueue(Guid.NewGuid());
+                _concurrentQueueDBIds.Enqueue(Guid.NewGuid());
             }
 
             UpdateDB();
